@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:dropdownfield/dropdownfield.dart';
+import 'package:prepn/data/main.dart' as data;
 import 'package:intl/intl.dart';
 
 class Register2 extends StatefulWidget {
@@ -23,6 +25,7 @@ class _InfoPro {
 
 class _Register2State extends State<Register2> {
   //Dropdown schools
+  String selectedSchool = "";
 
   //default radioValue
   int radioValue = -1;
@@ -173,6 +176,21 @@ class _Register2State extends State<Register2> {
                               child: Column(
                                 children: <Widget>[
                                   //DropDownList
+                                  //create formfield
+
+                                  DropDownField(
+                                    value: "",
+                                    icon: Icon(Icons.check_box),
+                                    labelText: "School",
+                                    labelStyle:
+                                        TextStyle(color: Colors.pink.shade200),
+                                    items: data.schools,
+                                    strict: false,
+                                    setter: (dynamic newValue) {
+                                      selectedSchool = newValue;
+                                    },
+                                    required: true,
+                                  ),
 
                                   TextFormField(
                                     textInputAction: TextInputAction.next,

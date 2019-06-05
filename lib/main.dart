@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepn/ui/home.dart';
+//import 'package:prepn/ui/studentPortal/register2.dart';
 
 void main() {
   runApp(Prepn());
@@ -28,6 +29,7 @@ class Prepn extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 50))),
       title: "Prepn",
+      // home: Home(),
       home: Home(),
     );
   }

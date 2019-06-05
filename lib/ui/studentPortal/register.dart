@@ -56,9 +56,9 @@ class _RegisterState extends State<Register> {
     //Date Range or isNull
     var dt = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: DateTime(DateTime.now().year - 30),
       firstDate: DateTime(DateTime.now().year - 90),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year - 18),
     );
     if (dt != null && dt != DateTime.now()) {
       dateValue.text = DateFormat.yMd().format(dt).toString();
