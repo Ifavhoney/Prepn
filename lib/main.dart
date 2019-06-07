@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepn/ui/home.dart';
+import 'package:prepn/ui/Food/FoodOptions.dart';
 //import 'package:prepn/ui/studentPortal/register2.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class Prepn extends StatelessWidget {
           brightness: Brightness.light,
           primaryColor: Colors.pink.shade300,
           accentColor: Colors.cyan.shade100,
+          cardColor: Colors.teal.shade200,
           buttonTheme: ButtonThemeData(
               buttonColor: Colors.lightBlue.shade200,
               textTheme: ButtonTextTheme.accent,
@@ -28,9 +30,9 @@ class Prepn extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 50))),
-      title: "Prepn",
+      title: "Prep'n",
       // home: Home(),
-      home: Home(),
+      home: FoodOptions(),
     );
   }
 }
