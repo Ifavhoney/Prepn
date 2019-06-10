@@ -9,7 +9,8 @@ class FoodOptions extends StatefulWidget {
 class _FoodOptionsState extends State<FoodOptions> {
   //instances
   List<String> _selectedFoods = List();
-  //print(cheese.length);
+
+  //Declare Map from data/main.dart
   Map<String, dynamic> food = data.food;
 
   int groupValue = -1;
@@ -21,6 +22,12 @@ class _FoodOptionsState extends State<FoodOptions> {
   //methods
   void _onChanged(int value) {
     switch (value) {
+      case -1:
+        setState(() {
+          this.groupValue = value;
+        });
+        break;
+
       case 0:
         setState(() {
           this.groupValue = value;
@@ -32,6 +39,7 @@ class _FoodOptionsState extends State<FoodOptions> {
         });
         break;
 
+//All
       case 2:
         setState(() {
           this.groupValue = value;
@@ -40,18 +48,29 @@ class _FoodOptionsState extends State<FoodOptions> {
     }
   }
 
-  void _checkBoxOnChanged(bool value) {
-    setState(() {
-      checkBoxValue = value;
-    });
+  Widget filterDiet(String name, int radio) {
+    print(name);
+    switch (radio) {
+      case -1:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("$name"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children:
+                    _addWidget.map((showFoodIcons) => showFoodIcons).toList(),
+              ),
+            )
+          ],
+        );
+        break;
+    }
   }
 
-  Widget _showFoodIcons(
-    String name,
-    int diet,
-    bool assemble,
-    bool cook,
-  ) {
+  Widget _showFoodIcons(List _foodBreakfast, int position, String name,
+      int diet, bool assemble, bool cook, int radio) {
     //Refresh
     _addWidget = [Text("")];
 
@@ -69,6 +88,11 @@ class _FoodOptionsState extends State<FoodOptions> {
         if (cook == true) {
           _addWidget.add(Icon(Icons.whatshot));
         }
+
+        // final item = _foodBreakfast.where((e) => e.isNotEmpty).toList();
+
+        //  print(item[position]["name"]);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -83,6 +107,7 @@ class _FoodOptionsState extends State<FoodOptions> {
           ],
         );
 
+        break;
       case 1:
 
         //Adding to the List
@@ -110,6 +135,7 @@ class _FoodOptionsState extends State<FoodOptions> {
             )
           ],
         );
+
         break;
 
       case 2:
@@ -124,6 +150,12 @@ class _FoodOptionsState extends State<FoodOptions> {
         if (cook == true) {
           _addWidget.add(Icon(Icons.whatshot));
         }
+
+        //We are copying and pasting this for the all option & maintaing the icons
+        if (radio == -1) {
+          return filterDiet(name, radio);
+        }
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -137,13 +169,30 @@ class _FoodOptionsState extends State<FoodOptions> {
             )
           ],
         );
-        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var _foodBreakfast = food["breakfast"];
+    //Inside Food is a List of type Map
+    List<Map> _foodBreakfast = food["breakfast"];
+    List item;
+    if (this.groupValue == -1) {
+      item = _foodBreakfast.where((e) => e.isNotEmpty).toList();
+    }
+    if (this.groupValue == 0) {
+      item = _foodBreakfast.where((e) => e["diet"] == 0).toList();
+    }
+    if (this.groupValue == 1) {
+      item = _foodBreakfast.where((e) => e["diet"] == 1).toList();
+    }
+    if (this.groupValue == 2) {
+      item = _foodBreakfast.where((e) => e["diet"] == 2).toList();
+    }
+    //print(item[1]["name"]);
+
+    // final item = _foodBreakfastt.where((e) => e["diet"] == 2).toList;
+    // print(item);
     // print(_foodBreakfast[5]["cook"]);
     //print(food["breakfast"].length);
 
@@ -182,7 +231,13 @@ class _FoodOptionsState extends State<FoodOptions> {
                               children: <Widget>[
                                 Text("All"),
                                 Radio(
-                                  value: 0,
+                                  value: -1,
+                                  groupValue: this.groupValue,
+                                  onChanged: this._onChanged,
+                                ),
+                                Text("Meat*"),
+                                Radio(
+                                  value: 2,
                                   groupValue: this.groupValue,
                                   onChanged: this._onChanged,
                                 ),
@@ -192,14 +247,18 @@ class _FoodOptionsState extends State<FoodOptions> {
                                   groupValue: this.groupValue,
                                   onChanged: this._onChanged,
                                 ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
                                 Text("Vegan"),
                                 Radio(
-                                  value: 2,
+                                  value: 0,
                                   groupValue: this.groupValue,
                                   onChanged: this._onChanged,
                                 ),
                               ],
-                            ),
+                            )
                             /* 
                             Text("Ways To Prep"),
                               Row(
@@ -231,17 +290,22 @@ class _FoodOptionsState extends State<FoodOptions> {
                     children: <Widget>[
                       Expanded(
                         child: ListView.builder(
-                          itemCount: _foodBreakfast.length,
+                          itemCount: item.length,
                           itemBuilder: (BuildContext context, int position) {
                             return CheckboxListTile(
                               //true whenever contains name
+
                               value: _selectedFoods
                                   .contains(_foodBreakfast[position]["name"]),
                               title: _showFoodIcons(
-                                  _foodBreakfast[position]["name"],
-                                  _foodBreakfast[position]["diet"],
-                                  _foodBreakfast[position]["assemble"],
-                                  _foodBreakfast[position]["cook"]),
+                                  _foodBreakfast,
+                                  position,
+                                  item[position]["name"],
+                                  item[position]["diet"],
+                                  item[position]["assemble"],
+                                  item[position]["cook"],
+                                  this.groupValue),
+
                               onChanged: (bool selected) {
                                 //by default value == true
                                 if (selected == true) {

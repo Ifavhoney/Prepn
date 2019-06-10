@@ -10,6 +10,8 @@ final List<String> schools = <String>[
 
 //STANDARD - Keys first letter "miniscule",
 //0 = vegan, 1 = vegetarian, 2 = All
+
+//Breakfast(String), array(dynamic)
 Map<String, dynamic> food = {
   "breakfast": [
     {
