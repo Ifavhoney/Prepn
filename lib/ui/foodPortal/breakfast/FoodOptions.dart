@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepn/data/main.dart' as data;
+import 'package:prepn/ui/foodPortal/mealTypes.dart';
 
 class FoodOptions extends StatefulWidget {
   @override
@@ -7,6 +8,15 @@ class FoodOptions extends StatefulWidget {
 }
 
 class _FoodOptionsState extends State<FoodOptions> {
+  //Method
+  Future _toMealTypes(BuildContext context) async {
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MealTypes();
+    });
+    return Navigator.of(context).push(route);
+  }
+
   //instances
   List<String> _selectedFoods = List();
 
@@ -353,12 +363,26 @@ class _FoodOptionsState extends State<FoodOptions> {
                                 child: ButtonBar(
                                   children: <Widget>[
                                     FlatButton(
+                                      child: Icon(Icons.arrow_back_ios),
+                                      onPressed: () {
+                                        _toMealTypes(context);
+                                      },
+                                    ),
+                                    FlatButton(
                                       child: Text(
-                                        "See Options",
+                                        "Save",
                                         style: TextStyle(color: Colors.indigo),
                                       ),
                                       onPressed: () {},
-                                    )
+                                    ),
+                                    (RaisedButton(
+                                      color: Colors.red,
+                                      child: Text(
+                                        "Order",
+                                        style: TextStyle(color: Colors.indigo),
+                                      ),
+                                      onPressed: () {},
+                                    ))
                                   ],
                                 ),
                               )

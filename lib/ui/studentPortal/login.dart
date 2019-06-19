@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prepn/ui/foodPortal/mealTypes.dart';
+
 import 'register.dart';
 
 //Private class for login
@@ -14,6 +16,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   //Methods
+  Future _toMealTypes(BuildContext context) async {
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MealTypes();
+    });
+    return Navigator.of(context).push(route);
+  }
+
   Future _toRegister(BuildContext context) async {
     //Create Route
     MaterialPageRoute route = MaterialPageRoute(builder: (context) {
@@ -115,6 +125,7 @@ class _LoginState extends State<Login> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
+                                  _toMealTypes(context);
                                   Scaffold.of(context).showSnackBar(successBar);
                                 }
                               },

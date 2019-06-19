@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prepn/ui/home.dart';
-import 'package:prepn/ui/Food/FoodOptions.dart';
+import 'package:prepn/ui/professionalPortal/login.dart';
+import 'package:prepn/ui/foodPortal/mealTypes.dart';
+import 'package:prepn/ui/foodPortal/breakfast/FoodOptions.dart';
 //import 'package:prepn/ui/studentPortal/register2.dart';
 
 void main() {
@@ -32,7 +34,7 @@ class Prepn extends StatelessWidget {
                   fontSize: 50))),
       title: "Prep'n",
       // home: Home(),
-      home: FoodOptions(),
+      home: Home(),
     );
   }
 }

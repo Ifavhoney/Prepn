@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
+import 'package:prepn/ui/foodPortal/mealTypes.dart';
 
 //Private class for login
 class _Info {
@@ -17,6 +18,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   //Methods
+  Future _toMealTypes(BuildContext context) async {
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MealTypes();
+    });
+    return Navigator.of(context).push(route);
+  }
+
   Future _toRegister(BuildContext context) async {
     //Create Route
     MaterialPageRoute route = MaterialPageRoute(builder: (context) {
@@ -63,70 +72,65 @@ class _LoginState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          autofocus: true,
-                          decoration: InputDecoration(
-                              hintText: "Prepn@customerservice",
-                              labelText: "Email",
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          validator: (String value) {
-                            if (value.isEmpty) {
-                              return "Empty Field";
-                            } else {
-                              setState(() {
-                                //Set info to value
-                                user.username = value;
-                              });
-                            }
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: TextFormField(
-                            autofocus: true,
-                            //Shows next instead
-                            textInputAction: TextInputAction.next,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                //  icon: Icon(Icons.border_color),
-                                prefixIcon: Icon(Icons.border_color),
-                                hintText: "Prepn!",
-                                labelText: "Password"),
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Empty field";
-                              } else {
-                                setState(() {
-                                  user.password = value;
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RaisedButton(
-                              color: Theme.of(context).primaryColor,
-                              child: Text(
-                                "Login",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .button
-                                    .copyWith(fontSize: 30),
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState.validate()) {
-                                  Scaffold.of(context).showSnackBar(successBar);
-                                }
-                              },
-                            )),
-                      ],
+                  TextFormField(
+                    autofocus: true,
+                    decoration: InputDecoration(
+                        hintText: "Prepn@customerservice",
+                        labelText: "Email",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return "Empty Field";
+                      } else {
+                        setState(() {
+                          //Set info to value
+                          user.username = value;
+                        });
+                      }
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: TextFormField(
+                      autofocus: true,
+                      //Shows next instead
+                      textInputAction: TextInputAction.next,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          //  icon: Icon(Icons.border_color),
+                          prefixIcon: Icon(Icons.border_color),
+                          hintText: "Prepn!",
+                          labelText: "Password"),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return "Empty field";
+                        } else {
+                          setState(() {
+                            user.password = value;
+                          });
+                        }
+                      },
                     ),
                   ),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        child: Text(
+                          "Login",
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(fontSize: 30),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            _toMealTypes(context);
+                            Scaffold.of(context).showSnackBar(successBar);
+                          }
+                        },
+                      )),
                   Container(
                     //color: Colors.yellow,
                     decoration: BoxDecoration(

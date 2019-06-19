@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:dropdownfield/dropdownfield.dart';
+import 'package:prepn/ui/foodPortal/mealTypes.dart';
+
 import 'package:prepn/data/main.dart' as data;
 import 'package:intl/intl.dart';
 
@@ -24,6 +26,16 @@ class _InfoPro {
 }
 
 class _Register2State extends State<Register2> {
+  //Methods
+
+  Future _toMealTypes(BuildContext context) async {
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MealTypes();
+    });
+    return Navigator.of(context).push(route);
+  }
+
   //Dropdown schools
   String selectedSchool = "";
 
@@ -276,6 +288,7 @@ class _Register2State extends State<Register2> {
                                 Scaffold.of(context).showSnackBar(radioBar);
                               } else if (this.radioValue > -1 &&
                                   _formKey.currentState.validate()) {
+                                _toMealTypes(context);
                                 Scaffold.of(context).showSnackBar(successBar);
                               }
                             },
